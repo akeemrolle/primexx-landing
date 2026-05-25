@@ -146,30 +146,45 @@
       opacity: .85;
     }
 
-    .hero-inner { position: relative; z-index: 5; max-width: 800px; }
+    .hero-inner {
+      position: relative;
+      z-index: 5;
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      text-align: left;
+    }
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(34,168,85,.2);
-      border: 1px solid rgba(34,168,85,.4);
-      color: #7deda9;
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: .35rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 1.8rem;
+    .hero-left { flex: 1 1 65%; }
+
+    .hero-right {
+      flex: 1 1 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @keyframes jiggle {
+      0%, 80%, 100% { transform: rotate(0deg) translateX(0); }
+      82%  { transform: rotate(-1.5deg) translateX(-3px); }
+      85%  { transform: rotate(1.5deg)  translateX(3px); }
+      88%  { transform: rotate(-1deg)   translateX(-2px); }
+      91%  { transform: rotate(.8deg)   translateX(2px); }
+      94%  { transform: rotate(0deg)    translateX(0); }
     }
 
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-size: clamp(3rem, 6.5vw, 5.2rem);
       font-weight: 800;
       color: var(--white);
-      line-height: 1.12;
-      letter-spacing: -.02em;
-      margin-bottom: 1.4rem;
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 1.8rem;
+      display: inline-block;
+      animation: jiggle 5s ease-in-out infinite;
     }
 
     .hero h1 span {
@@ -178,16 +193,14 @@
 
     .hero-sub {
       font-size: 1.15rem;
-      color: rgba(255,255,255,.72);
-      max-width: 600px;
-      margin: 0 auto 2.8rem;
+      color: var(--white);
       line-height: 1.75;
+      margin-bottom: 0;
     }
 
     .hero-actions {
       display: flex;
       gap: 1rem;
-      justify-content: center;
       flex-wrap: wrap;
     }
 
@@ -549,6 +562,9 @@
 
       .hero { padding: 100px 6% 22vw; }
 
+      .hero-inner { flex-direction: column; text-align: center; gap: 2rem; }
+      .hero-actions { justify-content: center; }
+
       .hero-treeline { width: 160%; left: -30%; }
       .hero-canopy   { width: 90%; right: -5%; }
 
@@ -580,14 +596,17 @@
     <img class="hero-canopy" src="better.png" alt="" aria-hidden="true" />
 
     <div class="hero-inner">
-      <div class="hero-badge">AI Sales Automation</div>
-      <h1>We build software that <span>fills your pipeline</span> on autopilot.</h1>
-      <p class="hero-sub">
-        PRIMEXX creates custom AI-powered systems that automate the sales process for marketing agencies — so your team closes deals instead of chasing leads.
-      </p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#contact">Get in Touch</a>
-        <a class="btn-secondary" href="#who">See Who We Help</a>
+      <div class="hero-left">
+        <h1>We build software that <span>fills your pipeline</span> on autopilot.</h1>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Get in Touch</a>
+          <a class="btn-secondary" href="#who">See Who We Help</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <p class="hero-sub">
+          PRIMEXX creates custom AI-powered systems that automate the sales process for marketing agencies — so your team closes deals instead of chasing leads.
+        </p>
       </div>
     </div>
   </section>
