@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRIMEXX — AI Sales Automation for Marketing Agencies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #0c3320;
+      --green-mid:    #1a6b3c;
+      --green-bright: #22a855;
+      --green-light:  #e8f7ee;
+      --green-faint:  #f4fbf6;
+      --white:        #ffffff;
+      --text-dark:    #0c1f14;
+      --text-mid:     #3a5244;
+      --text-muted:   #6b8f78;
+      --border:       #d0e8da;
+      --radius:       12px;
+      --radius-lg:    20px;
+      --shadow-sm:    0 2px 8px rgba(12,51,32,.08);
+      --shadow-md:    0 8px 32px rgba(12,51,32,.12);
+      --shadow-lg:    0 24px 64px rgba(12,51,32,.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(12,51,32,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.55rem;
+      color: var(--white);
+      letter-spacing: -.5px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--green-bright);
+      color: var(--white) !important;
+      padding: .45rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background .2s, transform .15s !important;
+    }
+
+    .nav-cta:hover {
+      background: #1d9448 !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, var(--green-dark) 0%, #0f4a27 55%, #155c32 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 6% 18vh;
+      position: relative;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 0%, rgba(34,168,85,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(34,168,85,.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* treeline — full width back layer, bottom half covered by next section */
+    .hero-treeline {
+      position: absolute;
+      bottom: 0;
+      left: -5%;
+      width: 110%;
+      height: auto;
+      z-index: 2;
+      pointer-events: none;
+      transform: translateY(50%);
+      mix-blend-mode: multiply;
+      filter: brightness(.55) saturate(1.4);
+      opacity: .9;
+    }
+
+    /* canopy — right-biased front layer for depth */
+    .hero-canopy {
+      position: absolute;
+      bottom: 0;
+      right: -3%;
+      width: 60%;
+      height: auto;
+      z-index: 3;
+      pointer-events: none;
+      transform: translateY(50%);
+      mix-blend-mode: multiply;
+      filter: brightness(.45) saturate(1.3);
+      opacity: .85;
+    }
+
+    .hero-inner { position: relative; z-index: 5; max-width: 800px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(34,168,85,.2);
+      border: 1px solid rgba(34,168,85,.4);
+      color: #7deda9;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 span {
+      color: var(--green-bright);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,.72);
+      max-width: 600px;
+      margin: 0 auto 2.8rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--green-bright);
+      color: var(--white);
+      padding: .85rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(34,168,85,.35);
+    }
+
+    .btn-primary:hover {
+      background: #1d9448;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(34,168,85,.45);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: .85rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,.3);
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 6%; }
+
+    .section-label {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green-bright);
+      margin-bottom: .8rem;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ── WHO WE HELP ── */
+    .who {
+      background: var(--green-faint);
+      position: relative;
+      z-index: 2;
+    }
+
+    .who-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .who-cards {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .who-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .who-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .who-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      background: var(--green-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .who-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: .3rem;
+    }
+
+    .who-card p {
+      font-size: .9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── OUTCOMES ── */
+    .outcomes { background: var(--white); }
+
+    .outcomes-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .outcomes-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .outcomes-header .section-body {
+      margin: 0 auto;
+    }
+
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .outcome-card {
+      background: var(--green-faint);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .outcome-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-mid), var(--green-bright));
+    }
+
+    .outcome-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .outcome-stat {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--green-mid);
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+
+    .outcome-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: .6rem;
+    }
+
+    .outcome-card p {
+      font-size: .9rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .pilot-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--green-faint); }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info .section-body { margin-bottom: 2rem; }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .95rem;
+      color: var(--text-mid);
+      margin-bottom: .75rem;
+    }
+
+    .contact-detail-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--green-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: .45rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: .95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green-bright);
+      box-shadow: 0 0 0 3px rgba(34,168,85,.12);
+    }
+
+    .form-group textarea { min-height: 120px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--green-mid);
+      color: var(--white);
+      padding: .9rem;
+      border-radius: var(--radius);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      margin-top: .5rem;
+    }
+
+    .form-submit:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--green-mid);
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 2.5rem 5%;
+      font-size: .87rem;
+    }
+
+    footer .footer-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--white);
+      display: block;
+      margin-bottom: .6rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-mid), var(--green-bright));
+      border-radius: 2px;
+      margin: 1.2rem 0 1.6rem;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 5%; }
+      .nav-links { display: none; }
+
+      .hero { padding: 100px 6% 22vw; }
+
+      .hero-treeline { width: 160%; left: -30%; }
+      .hero-canopy   { width: 90%; right: -5%; }
+
+      .who-inner,
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .outcomes-grid { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">PRIMEXX</a>
+    <ul class="nav-links">
+      <li><a href="#who">Who We Help</a></li>
+      <li><a href="#outcomes">Results</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-cta" href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-treeline" src="better.png" alt="" aria-hidden="true" />
+    <img class="hero-canopy" src="better.png" alt="" aria-hidden="true" />
+
+    <div class="hero-inner">
+      <div class="hero-badge">AI Sales Automation</div>
+      <h1>We build software that <span>fills your pipeline</span> on autopilot.</h1>
+      <p class="hero-sub">
+        PRIMEXX creates custom AI-powered systems that automate the sales process for marketing agencies — so your team closes deals instead of chasing leads.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Get in Touch</a>
+        <a class="btn-secondary" href="#who">See Who We Help</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE HELP -->
+  <section class="who" id="who">
+    <div class="who-inner">
+      <div>
+        <p class="section-label">Who We Help</p>
+        <h2 class="section-title">Built for marketing agencies ready to scale.</h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          We work with marketing agencies that are generating leads but losing time and revenue to manual sales tasks. If your team is spending hours on follow-up, qualification, or outreach — we automate it.
+        </p>
+      </div>
+      <div class="who-cards">
+        <div class="who-card">
+          <div class="who-icon">📈</div>
+          <div>
+            <h3>Agencies with a proven offer</h3>
+            <p>You have a service that works. You need a system that consistently gets it in front of the right buyers.</p>
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">⏱️</div>
+          <div>
+            <h3>Teams stuck in manual outreach</h3>
+            <p>Your salespeople are doing repetitive work that software should be handling — follow-ups, qualification, scheduling.</p>
+          </div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🎯</div>
+          <div>
+            <h3>Owners who want predictable revenue</h3>
+            <p>You want a sales process that runs without you — consistent, measurable, and built on real data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="outcomes" id="outcomes">
+    <div class="outcomes-inner">
+      <div class="outcomes-header">
+        <p class="section-label">Pilot Results</p>
+        <h2 class="section-title">What agencies see when the system is live.</h2>
+        <p class="section-body">
+          These are outcomes from our early client engagements. Results depend on your existing offer and traffic — we'll give you an honest assessment before we build anything.
+        </p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <div class="outcome-stat">3×</div>
+          <h3>More booked sales calls</h3>
+          <p>Automated outreach and follow-up sequences surface qualified prospects and get them on the calendar without manual effort.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-stat">~70%</div>
+          <h3>Reduction in manual follow-up</h3>
+          <p>AI handles initial contact, qualification questions, and scheduling — freeing your team to focus on closing.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-stat">Custom</div>
+          <h3>Built around your workflow</h3>
+          <p>Every system is built specifically for your agency — your CRM, your offer, your sales process. No generic templates.</p>
+        </div>
+      </div>
+      <p class="pilot-note">* Outcomes from pilot engagements. Results vary by agency size, offer, and existing pipeline.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Get in touch.</h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          Have a question or want to understand if we're the right fit? Send us a message — we respond within one business day.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <span>akeemrolle5@gmail.com</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <span>Remote — serving agencies worldwide</span>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder="Alex" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="Johnson" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="alex@youragency.com" required />
+          </div>
+          <div class="form-group">
+            <label for="agency">Agency Name</label>
+            <input type="text" id="agency" name="agency" placeholder="Your Agency" />
+          </div>
+          <div class="form-group">
+            <label for="challenge">What's your biggest sales challenge right now?</label>
+            <textarea id="challenge" name="challenge" placeholder="e.g. We generate leads but struggle to follow up consistently..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <p style="font-size:2rem; margin-bottom:.5rem;">✅</p>
+          <p>Message sent! We'll be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">PRIMEXX</span>
+    <p>© 2026 Primexxsoftware. All rights reserved.</p>
+    <p style="margin-top:.4rem;">Custom AI Sales Automation for Marketing Agencies.</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('formSuccess');
+
+      const data = new FormData(form);
+      const subject = encodeURIComponent('Primexx Inquiry — ' + (data.get('agency') || data.get('fname')));
+      const body = encodeURIComponent(
+        'Name: ' + data.get('fname') + ' ' + data.get('lname') + '\n' +
+        'Email: ' + data.get('email') + '\n' +
+        'Agency: ' + data.get('agency') + '\n\n' +
+        'Message:\n' + data.get('challenge')
+      );
+
+      window.location.href = 'mailto:akeemrolle5@gmail.com?subject=' + subject + '&body=' + body;
+
+      form.style.display = 'none';
+      success.style.display = 'block';
+    }
+
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current
+          ? 'white'
+          : 'rgba(255,255,255,.75)';
+      });
+    });
+  </script>
+</body>
+</html>
